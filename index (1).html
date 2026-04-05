@@ -32,7 +32,6 @@
       font-family:'Barrio',cursive;
       font-size:52px;
       line-height:1.1;
-      color:#111;
       white-space:nowrap;
     }
 
@@ -97,19 +96,19 @@
     .act:nth-child(5){transform:rotate(-0.7deg);}
 
     .act:hover{background:#EEE8D5;}
-    .act.on{background:#111;}
-    .act.on .alb{color:#F5F0E8;}
-    .act.on .material-icons{color:#F5F0E8;}
 
-    .act-tick{
-      position:absolute;top:-10px;right:-8px;
-      background:#C41E1E;color:white;
-      font-family:'Jua',sans-serif;
-      font-size:13px;width:22px;height:22px;
-      display:none;align-items:center;justify-content:center;
-      border:2px solid #111;
-    }
-    .act.on .act-tick{display:flex;}
+    .act.on .alb{color:#111;}
+    .act.on .material-icons{color:#111;}
+    .act.on .bow-icon{color:#111;}
+
+    .act-tick{display:none;}
+
+    .act[data-act="Swim"].on       { background:#F5F0E8; border-color:#A8CFEA; border-width:3px; }
+    .act[data-act="Gymnastics"].on { background:#F5F0E8; border-color:#F2B87A; border-width:3px; }
+    .act[data-act="Soccer"].on     { background:#F5F0E8; border-color:#9AC99A; border-width:3px; }
+    .act[data-act="Ballet"].on     { background:#F5F0E8; border-color:#E8A0BC; border-width:3px; }
+    .act[data-act="Tennis"].on     { background:#F5F0E8; border-color:#F0D878; border-width:3px; }
+    .act[data-act="College"].on    { background:#F5F0E8; border-color:#9AAED4; border-width:3px; }
 
     .bow-icon{
       display:block;
@@ -118,8 +117,6 @@
       width:28px;
       height:28px;
     }
-
-    .act.on .bow-icon{color:#F5F0E8;}
 
     .material-icons{
       font-size:28px;
@@ -268,7 +265,9 @@
 <div class="pg">
 
   <div class="hero">
-    <div class="big">★ june turns two ★</div>
+    <div class="big">
+      <span style="color:#D4845A;">★</span><span style="color:#6BAED6;"> j</span><span style="color:#E8A44A;">u</span><span style="color:#7BBF7B;">n</span><span style="color:#D47FA6;">e</span><span style="color:#B8A0CC;"> </span><span style="color:#D4845A;">t</span><span style="color:#6BAED6;">u</span><span style="color:#E8A44A;">r</span><span style="color:#7BBF7B;">n</span><span style="color:#D47FA6;">s</span><span style="color:#B8A0CC;"> </span><span style="color:#D4845A;">t</span><span style="color:#6BAED6;">w</span><span style="color:#E8A44A;">o</span><span style="color:#7BBF7B;"> ★</span>
+    </div>
   </div>
 
   <div class="scratch-box">
@@ -280,25 +279,21 @@
     <div class="act-grid" id="aG">
 
       <div class="act" data-act="Swim" onclick="selAct(this)">
-        <div class="act-tick">✓</div>
         <span class="material-icons">pool</span>
         <span class="alb">swim</span>
       </div>
 
       <div class="act" data-act="Gymnastics" onclick="selAct(this)">
-        <div class="act-tick">✓</div>
         <span class="material-icons">self_improvement</span>
         <span class="alb">gymnastics</span>
       </div>
 
       <div class="act" data-act="Soccer" onclick="selAct(this)">
-        <div class="act-tick">✓</div>
         <span class="material-icons">sports_soccer</span>
         <span class="alb">soccer</span>
       </div>
 
       <div class="act" data-act="Ballet" onclick="selAct(this)">
-        <div class="act-tick">✓</div>
         <svg class="bow-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M14 14 C10 10 4 8 3 11 C2 14 7 16 14 14Z" fill="currentColor"/>
           <path d="M14 14 C18 10 24 8 25 11 C26 14 21 16 14 14Z" fill="currentColor"/>
@@ -310,13 +305,11 @@
       </div>
 
       <div class="act" data-act="Tennis" onclick="selAct(this)">
-        <div class="act-tick">✓</div>
         <span class="material-icons">sports_tennis</span>
         <span class="alb">tennis</span>
       </div>
 
       <div class="act" data-act="College" onclick="selAct(this)">
-        <div class="act-tick">✓</div>
         <span class="material-icons">school</span>
         <span class="alb">college</span>
       </div>
