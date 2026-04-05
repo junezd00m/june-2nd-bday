@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>June Salome — Birthday Fund</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    body{
+      font-family:'Special Elite',monospace;
+      background:#F5F0E8;
+      color:#111;
+      min-height:100vh;
+    }
+
+    .pg{
+      max-width:640px;
+      margin:0 auto;
+      padding:2rem 1.5rem 4rem;
+    }
+
+    /* HERO */
+    .hero{
+      background:#F5F0E8;
+      border:3px solid #111;
+      padding:1.5rem;
+      margin-bottom:1.5rem;
+      position:relative;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      top:5px;left:5px;right:-5px;bottom:-5px;
+      border:2px solid #111;
+      z-index:-1;
+    }
+
+    .scratch-mark{
+      position:absolute;
+      top:8px;right:10px;
+      font-size:11px;
+      color:#C41E1E;
+      font-family:'Permanent Marker',cursive;
+      transform:rotate(3deg);
+    }
+
+    .crown{display:block;margin:0 auto 0.5rem;}
+
+    .big{
+      font-family:'Permanent Marker',cursive;
+      font-size:54px;
+      line-height:1;
+      color:#111;
+      text-align:center;
+      letter-spacing:-1px;
+    }
+
+    @media(max-width:480px){
+      .big{font-size:38px;}
+    }
+
+    .struck{
+      text-decoration:line-through;
+      text-decoration-thickness:3px;
+      color:#888;
+      font-size:16px;
+      text-align:center;
+      margin-top:4px;
+    }
+
+    .sub{
+      font-family:'Permanent Marker',cursive;
+      font-size:22px;
+      text-align:center;
+      color:#C41E1E;
+      margin-top:4px;
+    }
+
+    .words{
+      display:flex;flex-wrap:wrap;gap:6px;
+      margin-top:1rem;justify-content:center;
+    }
+
+    .word-tag{
+      font-size:12px;
+      border:1.5px solid #111;
+      padding:2px 8px;
+      background:#F5F0E8;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+    }
+
+    /* INTRO */
+    .scratch-box{
+      border:2.5px solid #111;
+      padding:1.1rem 1.25rem;
+      margin-bottom:1.5rem;
+      background:#FFFEF5;
+      position:relative;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .scratch-box::after{
+      content:'';
+      position:absolute;
+      bottom:-4px;right:-4px;
+      width:100%;height:100%;
+      border:1.5px solid #111;
+      z-index:-1;
+    }
+
+    .scratch-box .scratch-mark{position:absolute;top:8px;right:10px;}
+
+    /* SECTION HEADING */
+    .sec-hd{
+      font-family:'Permanent Marker',cursive;
+      font-size:20px;
+      color:#111;
+      margin-bottom:0.6rem;
+      display:flex;align-items:center;gap:8px;
+    }
+    .sec-hd::after{content:'';flex:1;height:2px;background:#111;}
+
+    /* ACTIVITIES */
+    .act-grid{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:8px;
+      margin-bottom:1.5rem;
+    }
+
+    @media(max-width:480px){
+      .act-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+    }
+
+    .act{
+      border:2.5px solid #111;
+      padding:10px 4px 8px;
+      text-align:center;
+      cursor:pointer;
+      background:#F5F0E8;
+      transition:background 0.1s,transform 0.1s;
+      position:relative;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .act:nth-child(1){transform:rotate(-1deg);}
+    .act:nth-child(2){transform:rotate(0.8deg);}
+    .act:nth-child(3){transform:rotate(-0.5deg);}
+    .act:nth-child(4){transform:rotate(1.2deg);}
+    .act:nth-child(5){transform:rotate(-0.7deg);}
+
+    .act:hover{background:#EEE8D5;}
+    .act.on{background:#111;color:#F5F0E8;}
+    .act.on .alb{color:#F5F0E8;}
+    .act.on svg path,.act.on svg circle,.act.on svg rect,.act.on svg ellipse,.act.on svg line{stroke:#F5F0E8!important;}
+    .act.on svg polygon{fill:#F5F0E8!important;}
+
+    .act-tick{
+      position:absolute;top:-10px;right:-8px;
+      background:#C41E1E;color:white;
+      font-family:'Permanent Marker',cursive;
+      font-size:14px;width:22px;height:22px;
+      display:none;align-items:center;justify-content:center;
+      border:2px solid #111;
+    }
+    .act.on .act-tick{display:flex;}
+
+    .alb{
+      font-family:'Special Elite',monospace;
+      font-size:12px;color:#111;margin-top:5px;
+      display:block;text-transform:uppercase;letter-spacing:0.04em;
+    }
+
+    /* AMOUNTS */
+    .amt-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+
+    .apill{
+      font-family:'Permanent Marker',cursive;
+      font-size:22px;
+      padding:5px 18px;
+      border:2.5px solid #111;
+      background:#111;
+      color:#F5F0E8;
+      cursor:pointer;
+      transition:opacity 0.1s;
+    }
+
+    .apill:hover{opacity:0.75;}
+    .apill.on{background:#C41E1E;color:#F5F0E8;border-color:#C41E1E;}
+
+    .cinput input{
+      font-family:'Special Elite',monospace;
+      font-size:17px;
+      padding:5px 12px;
+      border:2.5px solid #111;
+      background:#111;
+      color:#F5F0E8;
+      width:100%;
+      max-width:220px;
+      margin-top:8px;
+    }
+
+    .cinput input::placeholder{color:#888;}
+    .cinput input:focus{outline:none;background:#222;}
+
+    /* NOTE */
+    .note-area{
+      width:100%;
+      font-family:'Special Elite',monospace;
+      font-size:16px;
+      padding:10px 12px;
+      border:2.5px solid #111;
+      background:#FFFEF5;color:#111;
+      resize:none;line-height:1.6;
+    }
+    .note-area:focus{outline:none;background:#EEE8D5;}
+
+    /* PAYMENT */
+    .pay-blk{
+      border:2.5px solid #111;
+      padding:1rem 1.25rem;
+      margin-bottom:1.5rem;
+      background:#F5F0E8;
+      position:relative;
+      margin-top:1rem;
+    }
+
+    .pay-blk::before{
+      content:'$$$';
+      position:absolute;top:-14px;left:12px;
+      background:#C41E1E;color:#F5F0E8;
+      font-family:'Permanent Marker',cursive;
+      font-size:13px;padding:0 8px;
+    }
+
+    .ptabs{display:flex;gap:8px;margin-bottom:0.75rem;flex-wrap:wrap;}
+
+    .ptab{
+      font-family:'Special Elite',monospace;
+      font-size:16px;
+      text-transform:uppercase;letter-spacing:0.06em;
+      padding:4px 16px;
+      border:2.5px solid #111;
+      background:#111;
+      color:#F5F0E8;
+      cursor:pointer;
+      transition:opacity 0.1s;
+    }
+
+    .ptab:hover{opacity:0.75;}
+    .ptab.on{background:#C41E1E;color:#F5F0E8;border-color:#C41E1E;}
+
+    .pinfo{font-family:'Special Elite',monospace;font-size:15px;color:#555;}
+
+    .venmo-handle{
+      font-family:'Permanent Marker',cursive;
+      font-size:22px;
+      color:#111;
+      margin-top:4px;
+    }
+
+    .pay-action-btn{
+      display:none;
+      margin-top:1rem;
+      width:100%;
+      font-family:'Permanent Marker',cursive;
+      font-size:22px;
+      padding:10px 20px;
+      border:2.5px solid #111;
+      cursor:pointer;
+      text-align:center;
+      text-decoration:none;
+      transition:opacity 0.1s;
+    }
+
+    .pay-action-btn:hover{opacity:0.8;}
+
+    .btn-venmo{
+      background:#008CFF;
+      color:#fff;
+    }
+
+    .btn-zelle{
+      background:#6D1ED4;
+      color:#fff;
+    }
+
+    .zelle-info{
+      display:none;
+      margin-top:0.75rem;
+      font-size:16px;
+      line-height:1.6;
+      color:#333;
+    }
+
+    .zelle-num{
+      font-family:'Permanent Marker',cursive;
+      font-size:22px;
+      color:#111;
+      margin-top:2px;
+    }
+
+    /* SUMMARY */
+    .sum-blk{
+      border:2.5px dashed #C41E1E;
+      padding:1rem 1.25rem;
+      margin-bottom:1rem;
+      background:#FFFEF5;
+      display:none;
+    }
+
+    .srow{
+      display:flex;justify-content:space-between;
+      font-size:16px;color:#333;padding:3px 0;
+      font-family:'Special Elite',monospace;
+    }
+
+    .srow.tot{
+      border-top:2px solid #111;
+      margin-top:6px;padding-top:8px;
+      font-family:'Permanent Marker',cursive;
+      font-size:22px;color:#111;
+    }
+
+    .cta-blk{
+      background:#C41E1E;color:#F5F0E8;
+      padding:1rem 1.25rem;margin-bottom:1.5rem;
+      font-family:'Special Elite',monospace;
+      font-size:16px;line-height:1.6;
+      display:none;text-align:center;
+      border:2.5px solid #111;
+    }
+
+    .sp{margin-bottom:1.25rem;}
+  </style>
+</head>
+<body>
+<div class="pg">
+
+  <div class="hero">
+    <span class="scratch-mark">★ 2 yrs ★</span>
+    <svg class="crown" width="60" height="36" viewBox="0 0 60 36">
+      <polygon points="4,32 4,10 16,22 30,2 44,22 56,10 56,32" fill="none" stroke="#C41E1E" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="4" y="30" width="52" height="4" fill="#C41E1E"/>
+      <circle cx="30" cy="4" r="3" fill="#C41E1E"/>
+      <circle cx="4" cy="12" r="2.5" fill="#111"/>
+      <circle cx="56" cy="12" r="2.5" fill="#111"/>
+    </svg>
+    <div class="big">JUNE SALOME</div>
+    <div class="struck">please buy me toys and stuff</div>
+    <div class="sub">fund her adventures instead</div>
+    <div class="words">
+      <span class="word-tag">swim</span>
+      <span class="word-tag">©childhood</span>
+      <span class="word-tag">gymnastics</span>
+      <span class="word-tag">soccer</span>
+      <span class="word-tag">ballet</span>
+      <span class="word-tag">tennis</span>
+      <span class="word-tag">joy</span>
+    </div>
+  </div>
+
+  <div class="scratch-box">
+    <span class="scratch-mark">read this</span>
+    june is already making waves in swim class. she has opinions about everything. she will thrive. instead of gifts — put it toward her first big adventures. we promise it goes straight to june.
+  </div>
+
+  <div class="sp">
+    <div class="sec-hd">PICK ONE</div>
+    <div class="act-grid" id="aG">
+
+      <div class="act" data-act="Swim" onclick="selAct(this)">
+        <div class="act-tick">✓</div>
+        <svg width="42" height="36" viewBox="0 0 42 36">
+          <ellipse cx="21" cy="26" rx="14" ry="5" fill="none" stroke="#111" stroke-width="2.5"/>
+          <path d="M8 26 Q14 20 20 26 Q26 32 32 26" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="21" cy="10" r="6" fill="none" stroke="#111" stroke-width="2.5"/>
+          <path d="M15 16 L9 22" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M27 16 L33 21" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="alb">swim</span>
+      </div>
+
+      <div class="act" data-act="Gymnastics" onclick="selAct(this)">
+        <div class="act-tick">✓</div>
+        <svg width="42" height="36" viewBox="0 0 42 36">
+          <circle cx="21" cy="7" r="5" fill="none" stroke="#111" stroke-width="2.5"/>
+          <path d="M21 12 L21 26" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M21 18 L10 13" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M21 18 L32 13" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M21 26 L13 35" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M21 26 L29 35" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M4 13 L10 13" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M32 13 L38 13" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span class="alb">gym</span>
+      </div>
+
+      <div class="act" data-act="Soccer" onclick="selAct(this)">
+        <div class="act-tick">✓</div>
+        <svg width="42" height="36" viewBox="0 0 42 36">
+          <circle cx="21" cy="24" r="10" fill="none" stroke="#111" stroke-width="2.5"/>
+          <polygon points="21,14 24,20 21,24 18,20" fill="#111"/>
+          <circle cx="21" cy="8" r="5" fill="none" stroke="#111" stroke-width="2.5"/>
+          <path d="M16 33 L13 36" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <path d="M26 33 L29 36" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="alb">soccer</span>
+      </div>
+
+      <div class="act" data-act="Ballet" onclick="selAct(this)">
+        <div class="act-tick">✓</div>
+        <svg width="42" height="36" viewBox="0 0 42 36">
+          <circle cx="21" cy="7" r="5" fill="none" stroke="#111" stroke-width="2.5"/>
+          <path d="M21 12 L21 24" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M13 17 Q21 23 29 17" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+          <ellipse cx="21" cy="30" rx="9" ry="5" fill="none" stroke="#111" stroke-width="2.5"/>
+          <path d="M13 34 L10 36" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+          <path d="M29 34 L32 36" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="alb">ballet</span>
+      </div>
+
+      <div class="act" data-act="Tennis" onclick="selAct(this)">
+        <div class="act-tick">✓</div>
+        <svg width="42" height="36" viewBox="0 0 42 36">
+          <ellipse cx="19" cy="20" rx="11" ry="13" fill="none" stroke="#111" stroke-width="2.5"/>
+          <path d="M10 14 Q19 20 28 14" fill="none" stroke="#111" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M10 26 Q19 20 28 26" fill="none" stroke="#111" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="28" y="30" width="3" height="9" fill="none" stroke="#111" stroke-width="2"/>
+          <circle cx="35" cy="9" r="5" fill="none" stroke="#111" stroke-width="2.5"/>
+        </svg>
+        <span class="alb">tennis</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sp">
+    <div class="sec-hd">HOW MUCH</div>
+    <div class="amt-row">
+      <button class="apill" onclick="selAmt(this,15)">$15</button>
+      <button class="apill" onclick="selAmt(this,25)">$25</button>
+      <button class="apill" onclick="selAmt(this,50)">$50</button>
+      <button class="apill" onclick="selAmt(this,100)">$100</button>
+    </div>
+    <div class="cinput">
+      <input type="number" id="cAmt" placeholder="other amount $" min="1" oninput="onCust()"/>
+    </div>
+  </div>
+
+  <div class="sp">
+    <div class="sec-hd">NOTE FOR JUNE</div>
+    <textarea class="note-area" id="nF" rows="3" placeholder="happy birthday june. you're gonna be great at everything..." oninput="upd()"></textarea>
+  </div>
+
+  <div class="pay-blk sp">
+    <div class="sec-hd" style="font-size:16px;margin-bottom:0.6rem;">SEND VIA</div>
+    <div class="ptabs">
+      <button class="ptab on" onclick="setPay(this,'venmo')">venmo</button>
+      <button class="ptab" onclick="setPay(this,'zelle')">zelle</button>
+    </div>
+    <div class="pinfo">send to:</div>
+    <div class="venmo-handle" id="pH">@villaloboscarlos</div>
+    <div class="zelle-info" id="zI">
+      <div class="zelle-num">714-365-3118</div>
+      <div style="font-size:13px;color:#888;margin-top:4px;">open your bank app → zelle → send to this number</div>
+    </div>
+    <a class="pay-action-btn btn-venmo" id="venmoBtn" href="#" target="_blank">PAY WITH VENMO →</a>
+  </div>
+
+  <div class="sum-blk" id="sB">
+    <div class="srow"><span>activity</span><span id="sAct"></span></div>
+    <div class="srow"><span>note</span><span id="sNote" style="max-width:55%;text-align:right;font-style:italic;"></span></div>
+    <div class="srow tot"><span>total</span><span id="sAmt"></span></div>
+  </div>
+
+  <div class="cta-blk" id="cB"></div>
+
+</div>
+
+<script>
+  let sAct=null,sAmt=null,pay='venmo';
+
+  function selAct(el){
+    document.querySelectorAll('.act').forEach(c=>c.classList.remove('on'));
+    el.classList.add('on');sAct=el.dataset.act;upd();
+  }
+
+  function selAmt(el,a){
+    document.querySelectorAll('.apill').forEach(b=>b.classList.remove('on'));
+    el.classList.add('on');
+    document.getElementById('cAmt').value='';
+    sAmt=a;upd();
+  }
+
+  function onCust(){
+    document.querySelectorAll('.apill').forEach(b=>b.classList.remove('on'));
+    const v=parseInt(document.getElementById('cAmt').value);
+    sAmt=isNaN(v)||v<1?null:v;upd();
+  }
+
+  function setPay(el,m){
+    document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('on'));
+    el.classList.add('on');pay=m;
+    const ph=document.getElementById('pH');
+    const zi=document.getElementById('zI');
+    const vb=document.getElementById('venmoBtn');
+    if(m==='venmo'){
+      ph.style.display='block';
+      ph.textContent='@villaloboscarlos';
+      zi.style.display='none';
+    } else {
+      ph.style.display='none';
+      zi.style.display='block';
+    }
+    upd();
+  }
+
+  function upd(){
+    const note=document.getElementById('nF').value.trim();
+    const sb=document.getElementById('sB'),cb=document.getElementById('cB');
+    const vb=document.getElementById('venmoBtn');
+    if(sAct&&sAmt){
+      sb.style.display='block';
+      cb.style.display='block';
+      document.getElementById('sAct').textContent=sAct.toLowerCase();
+      document.getElementById('sNote').textContent=note||'(none)';
+      document.getElementById('sAmt').textContent='$'+sAmt;
+      const memo=sAct+' fund — june salome';
+      if(pay==='venmo'){
+        cb.textContent='tap the button below to open venmo — recipient and memo are pre-filled!';
+        const url='venmo://paycharge?txn=pay&recipients=villaloboscarlos&amount='+sAmt+'&note='+encodeURIComponent(memo);
+        vb.href=url;
+        vb.textContent='PAY $'+sAmt+' WITH VENMO →';
+        vb.style.display='block';
+      } else {
+        cb.textContent='open your bank app → zelle → send $'+sAmt+' to 714-365-3118 — memo: "'+memo+'"';
+        vb.style.display='none';
+      }
+    } else {
+      sb.style.display='none';
+      cb.style.display='none';
+      vb.style.display='none';
+    }
+  }
+</script>
+</body>
+</html>
