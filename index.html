@@ -265,6 +265,47 @@
       margin-top:4px;
     }
 
+    .pay-action-btn{
+      display:none;
+      margin-top:1rem;
+      width:100%;
+      font-family:'Permanent Marker',cursive;
+      font-size:22px;
+      padding:10px 20px;
+      border:2.5px solid #111;
+      cursor:pointer;
+      text-align:center;
+      text-decoration:none;
+      transition:opacity 0.1s;
+    }
+
+    .pay-action-btn:hover{opacity:0.8;}
+
+    .btn-venmo{
+      background:#008CFF;
+      color:#fff;
+    }
+
+    .btn-zelle{
+      background:#6D1ED4;
+      color:#fff;
+    }
+
+    .zelle-info{
+      display:none;
+      margin-top:0.75rem;
+      font-size:16px;
+      line-height:1.6;
+      color:#333;
+    }
+
+    .zelle-num{
+      font-family:'Permanent Marker',cursive;
+      font-size:22px;
+      color:#111;
+      margin-top:2px;
+    }
+
     /* SUMMARY */
     .sum-blk{
       border:2.5px dashed #C41E1E;
@@ -424,10 +465,14 @@
     <div class="ptabs">
       <button class="ptab on" onclick="setPay(this,'venmo')">venmo</button>
       <button class="ptab" onclick="setPay(this,'zelle')">zelle</button>
-      <button class="ptab" onclick="setPay(this,'paypal')">paypal</button>
     </div>
-    <div class="pinfo" id="pI">send to:</div>
+    <div class="pinfo">send to:</div>
     <div class="venmo-handle" id="pH">@villaloboscarlos</div>
+    <div class="zelle-info" id="zI">
+      <div class="zelle-num">714-365-3118</div>
+      <div style="font-size:13px;color:#888;margin-top:4px;">open your bank app → zelle → send to this number</div>
+    </div>
+    <a class="pay-action-btn btn-venmo" id="venmoBtn" href="#" target="_blank">PAY WITH VENMO →</a>
   </div>
 
   <div class="sum-blk" id="sB">
@@ -442,12 +487,6 @@
 
 <script>
   let sAct=null,sAmt=null,pay='venmo';
-
-  const handles={
-    venmo:'@villaloboscarlos',
-    zelle:'@villaloboscarlos',
-    paypal:'@villaloboscarlos'
-  };
 
   function selAct(el){
     document.querySelectorAll('.act').forEach(c=>c.classList.remove('on'));
@@ -470,22 +509,45 @@
   function setPay(el,m){
     document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('on'));
     el.classList.add('on');pay=m;
-    document.getElementById('pH').textContent=handles[m];
+    const ph=document.getElementById('pH');
+    const zi=document.getElementById('zI');
+    const vb=document.getElementById('venmoBtn');
+    if(m==='venmo'){
+      ph.style.display='block';
+      ph.textContent='@villaloboscarlos';
+      zi.style.display='none';
+    } else {
+      ph.style.display='none';
+      zi.style.display='block';
+    }
     upd();
   }
 
   function upd(){
     const note=document.getElementById('nF').value.trim();
     const sb=document.getElementById('sB'),cb=document.getElementById('cB');
+    const vb=document.getElementById('venmoBtn');
     if(sAct&&sAmt){
-      sb.style.display='block';cb.style.display='block';
+      sb.style.display='block';
+      cb.style.display='block';
       document.getElementById('sAct').textContent=sAct.toLowerCase();
       document.getElementById('sNote').textContent=note||'(none)';
       document.getElementById('sAmt').textContent='$'+sAmt;
-      const p=pay.charAt(0).toUpperCase()+pay.slice(1);
-      cb.textContent='send $'+sAmt+' via '+p+' to '+handles[pay]+' — memo: "'+sAct+' fund — june salome" — thank you!!';
+      const memo=sAct+' fund — june salome';
+      if(pay==='venmo'){
+        cb.textContent='tap the button below to open venmo — recipient and memo are pre-filled!';
+        const url='venmo://paycharge?txn=pay&recipients=villaloboscarlos&amount='+sAmt+'&note='+encodeURIComponent(memo);
+        vb.href=url;
+        vb.textContent='PAY $'+sAmt+' WITH VENMO →';
+        vb.style.display='block';
+      } else {
+        cb.textContent='open your bank app → zelle → send $'+sAmt+' to 714-365-3118 — memo: "'+memo+'"';
+        vb.style.display='none';
+      }
     } else {
-      sb.style.display='none';cb.style.display='none';
+      sb.style.display='none';
+      cb.style.display='none';
+      vb.style.display='none';
     }
   }
 </script>
