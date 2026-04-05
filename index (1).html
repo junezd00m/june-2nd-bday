@@ -70,12 +70,12 @@
 
     .act-grid{
       display:grid;
-      grid-template-columns:repeat(5,minmax(0,1fr));
+      grid-template-columns:repeat(6,minmax(0,1fr));
       gap:8px;
       margin-bottom:1.5rem;
     }
 
-    @media(max-width:480px){
+    @media(max-width:540px){
       .act-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
     }
 
@@ -313,6 +313,12 @@
         <div class="act-tick">✓</div>
         <span class="material-icons">sports_tennis</span>
         <span class="alb">tennis</span>
+      </div>
+
+      <div class="act" data-act="College" onclick="selAct(this)">
+        <div class="act-tick">✓</div>
+        <span class="material-icons">school</span>
+        <span class="alb">college</span>
       </div>
 
     </div>
