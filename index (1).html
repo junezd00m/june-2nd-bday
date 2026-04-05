@@ -115,7 +115,7 @@
       margin:0 auto;
       color:#111;
       width:28px;
-      height:28px;
+      height:32px;
     }
 
     .material-icons{
@@ -142,14 +142,26 @@
       font-size:22px;
       padding:5px 18px;
       border:2.5px solid #111;
-      background:#111;
-      color:#F5F0E8;
+      background:#F5F0E8;
+      color:#111;
       cursor:pointer;
-      transition:opacity 0.1s;
+      transition:border-color 0.1s;
+      position:relative;
     }
 
-    .apill:hover{opacity:0.75;}
-    .apill.on{background:#C41E1E;color:#F5F0E8;border-color:#C41E1E;}
+    .apill:hover{background:#EEE8D5;}
+    .apill.on{background:#F5F0E8;border-color:#111;}
+
+    .apill .star{
+      display:none;
+      position:absolute;
+      top:-10px;
+      right:-8px;
+      font-size:16px;
+      line-height:1;
+    }
+
+    .apill.on .star{display:block;}
 
     .cinput input{
       font-family:'Jua',sans-serif;
@@ -192,7 +204,7 @@
     .pay-blk::before{
       content:'$$$';
       position:absolute;top:-14px;left:12px;
-      background:#C41E1E;color:#F5F0E8;
+      background:#C4714A;color:#fff;
       font-family:'Barrio',cursive;
       font-size:13px;padding:0 8px;
     }
@@ -213,7 +225,7 @@
     }
 
     .ptab:hover{opacity:0.75;}
-    .ptab.on{background:#C41E1E;color:#F5F0E8;border-color:#C41E1E;}
+    .ptab.on{background:#C4714A;color:#fff;border-color:#C4714A;}
 
     .pinfo{font-family:'Jua',sans-serif;font-size:14px;color:#555;margin-bottom:4px;}
 
@@ -239,7 +251,7 @@
     }
 
     .pay-action-btn:hover{opacity:0.8;}
-    .btn-venmo{background:#008CFF;color:#fff;}
+    .btn-venmo{background:#C4714A;color:#fff;border-color:#C4714A;}
 
     .zelle-info{
       display:none;
@@ -294,12 +306,12 @@
       </div>
 
       <div class="act" data-act="Ballet" onclick="selAct(this)">
-        <svg class="bow-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14 14 C10 10 4 8 3 11 C2 14 7 16 14 14Z" fill="currentColor"/>
-          <path d="M14 14 C18 10 24 8 25 11 C26 14 21 16 14 14Z" fill="currentColor"/>
-          <path d="M14 14 C10 18 4 20 3 17 C2 14 7 12 14 14Z" fill="currentColor"/>
-          <path d="M14 14 C18 18 24 20 25 17 C26 14 21 12 14 14Z" fill="currentColor"/>
-          <circle cx="14" cy="14" r="2" fill="currentColor"/>
+        <svg class="bow-icon" width="28" height="32" viewBox="0 0 56 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 22 C24 28 14 30 8 26 C4 23 6 17 12 16 C18 15 24 18 28 22Z" fill="currentColor"/>
+          <path d="M28 22 C32 28 42 30 48 26 C52 23 50 17 44 16 C38 15 32 18 28 22Z" fill="currentColor"/>
+          <path d="M26 24 L20 48 C19 52 17 56 15 58" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <path d="M30 24 L36 48 C37 52 39 56 41 58" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="28" cy="22" rx="3" ry="3.5" fill="currentColor"/>
         </svg>
         <span class="alb">ballet</span>
       </div>
@@ -320,10 +332,10 @@
   <div class="sp">
     <div class="sec-hd">how much</div>
     <div class="amt-row" style="justify-content:center;">
-      <button class="apill" onclick="selAmt(this,15)">$15</button>
-      <button class="apill" onclick="selAmt(this,25)">$25</button>
-      <button class="apill" onclick="selAmt(this,50)">$50</button>
-      <button class="apill" onclick="selAmt(this,100)">$100</button>
+      <button class="apill" onclick="selAmt(this,25)"><span class="star">★</span>$25</button>
+      <button class="apill" onclick="selAmt(this,50)"><span class="star">★</span>$50</button>
+      <button class="apill" onclick="selAmt(this,75)"><span class="star">★</span>$75</button>
+      <button class="apill" onclick="selAmt(this,100)"><span class="star">★</span>$100</button>
     </div>
     <div class="cinput" style="text-align:center;">
       <input type="number" id="cAmt" placeholder="other amount $" min="1" oninput="onCust()"/>
@@ -363,9 +375,23 @@
 <script>
   let sAct=null,sAmt=null,pay='venmo';
 
+  const actColors={
+    Swim:'#A8CFEA', Gymnastics:'#F2B87A', Soccer:'#9AC99A',
+    Ballet:'#E8A0BC', Tennis:'#F0D878', College:'#9AAED4'
+  };
+
+  function getActColor(){ return sAct ? actColors[sAct] : '#111'; }
+
+  function updateStars(){
+    const color = getActColor();
+    document.querySelectorAll('.apill .star').forEach(s=>s.style.color=color);
+  }
+
   function selAct(el){
     document.querySelectorAll('.act').forEach(c=>c.classList.remove('on'));
-    el.classList.add('on');sAct=el.dataset.act;upd();
+    el.classList.add('on');sAct=el.dataset.act;
+    updateStars();
+    upd();
   }
 
   function selAmt(el,a){
