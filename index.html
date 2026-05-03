@@ -23,6 +23,7 @@
       padding:2rem 1.5rem 4rem;
     }
 
+    /* HERO */
     .hero{
       text-align:center;
       margin-bottom:1.5rem;
@@ -39,6 +40,7 @@
       .big{font-size:34px;}
     }
 
+    /* INTRO */
     .scratch-box{
       border:2.5px solid #111;
       padding:1.1rem 1.25rem;
@@ -58,6 +60,7 @@
       z-index:-1;
     }
 
+    /* SECTION HEADING */
     .sec-hd{
       font-family:'Barrio',cursive;
       font-size:20px;
@@ -67,6 +70,7 @@
     }
     .sec-hd::after{content:'';flex:1;height:2px;background:#111;}
 
+    /* ACTIVITIES */
     .act-grid{
       display:grid;
       grid-template-columns:repeat(6,minmax(0,1fr));
@@ -84,7 +88,7 @@
       text-align:center;
       cursor:pointer;
       background:#F5F0E8;
-      transition:background 0.1s;
+      transition:background 0.1s, border-color 0.15s, border-width 0.15s;
       position:relative;
       -webkit-tap-highlight-color:transparent;
     }
@@ -94,21 +98,28 @@
     .act:nth-child(3){transform:rotate(-0.5deg);}
     .act:nth-child(4){transform:rotate(1.2deg);}
     .act:nth-child(5){transform:rotate(-0.7deg);}
+    .act:nth-child(6){transform:rotate(0.5deg);}
 
     .act:hover{background:#EEE8D5;}
-
     .act.on .alb{color:#111;}
     .act.on .material-icons{color:#111;}
     .act.on .bow-icon{color:#111;}
 
+    .act[data-act="Swim"].on       { background:#F5F0E8; border-color:#A8CFEA; border-width:3.5px; }
+    .act[data-act="Gymnastics"].on { background:#F5F0E8; border-color:#F2B87A; border-width:3.5px; }
+    .act[data-act="Soccer"].on     { background:#F5F0E8; border-color:#9AC99A; border-width:3.5px; }
+    .act[data-act="Ballet"].on     { background:#F5F0E8; border-color:#E8A0BC; border-width:3.5px; }
+    .act[data-act="Tennis"].on     { background:#F5F0E8; border-color:#F0D878; border-width:3.5px; }
+    .act[data-act="College"].on    { background:#F5F0E8; border-color:#9AAED4; border-width:3.5px; }
+
     .act-tick{display:none;}
 
-    .act[data-act="Swim"].on       { background:#F5F0E8; border-color:#A8CFEA; border-width:3px; }
-    .act[data-act="Gymnastics"].on { background:#F5F0E8; border-color:#F2B87A; border-width:3px; }
-    .act[data-act="Soccer"].on     { background:#F5F0E8; border-color:#9AC99A; border-width:3px; }
-    .act[data-act="Ballet"].on     { background:#F5F0E8; border-color:#E8A0BC; border-width:3px; }
-    .act[data-act="Tennis"].on     { background:#F5F0E8; border-color:#F0D878; border-width:3px; }
-    .act[data-act="College"].on    { background:#F5F0E8; border-color:#9AAED4; border-width:3px; }
+    .material-icons{
+      font-size:28px;
+      color:#111;
+      display:block;
+      margin:0 auto;
+    }
 
     .bow-icon{
       display:block;
@@ -116,13 +127,6 @@
       color:#111;
       width:28px;
       height:32px;
-    }
-
-    .material-icons{
-      font-size:28px;
-      color:#111;
-      display:block;
-      margin:0 auto;
     }
 
     .alb{
@@ -135,6 +139,7 @@
       letter-spacing:0.04em;
     }
 
+    /* AMOUNTS */
     .amt-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
 
     .apill{
@@ -178,6 +183,7 @@
     .cinput input::placeholder{color:#C4714A;opacity:0.7;}
     .cinput input:focus{outline:none;background:transparent;}
 
+    /* NOTE */
     .note-area{
       width:100%;
       font-family:'Jua',sans-serif;
@@ -191,6 +197,7 @@
     }
     .note-area:focus{outline:none;background:#EEE8D5;}
 
+    /* PAYMENT */
     .pay-blk{
       border:2.5px solid #111;
       padding:1rem 1.25rem;
@@ -269,6 +276,19 @@
     }
 
     .zelle-note{font-size:12px;color:#888;margin-top:4px;font-style:italic;}
+
+    /* MEMO NOTE */
+    .memo-note{
+      border:2px dashed #C4714A;
+      padding:0.9rem 1.25rem;
+      margin-top:1.5rem;
+      background:#FFFEF5;
+      font-size:14px;
+      line-height:1.7;
+      color:#555;
+      font-style:italic;
+      text-align:center;
+    }
 
     .sp{margin-bottom:1.25rem;}
   </style>
@@ -362,18 +382,22 @@
         <div class="pinfo" style="margin-bottom:4px;">memo to include:</div>
         <div style="display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap;">
           <div id="zMemo" style="font-family:'Jua',sans-serif;font-size:15px;background:#FFFEF5;border:2px solid #111;padding:6px 14px;color:#111;"></div>
-          <button onclick="copyMemo()" id="copyBtn" style="font-family:'Barrio',cursive;font-size:16px;padding:5px 14px;border:2px solid #111;background:#111;color:#F5F0E8;cursor:pointer;">copy</button>
+          <button onclick="copyMemo()" style="font-family:'Barrio',cursive;font-size:16px;padding:5px 14px;border:2px solid #111;background:#111;color:#F5F0E8;cursor:pointer;">copy</button>
         </div>
-        <div id="copyConfirm" style="font-size:12px;color:#1D9E75;margin-top:6px;display:none;">copied!</div>
+        <div id="copyConfirm" style="font-size:12px;color:#C4714A;margin-top:6px;display:none;">copied!</div>
       </div>
     </div>
     <a class="pay-action-btn btn-venmo" id="venmoBtn" href="#" target="_blank">pay with venmo →</a>
   </div>
 
+  <div class="memo-note">
+    at this time, we are only accepting cash donations to go toward june's sports & activity enrollments. thank you for your love and support!
+  </div>
+
 </div>
 
 <script>
-  let sAct=null,sAmt=null,pay='venmo';
+  let sAct=null, sAmt=null, pay='venmo';
 
   const actColors={
     Swim:'#A8CFEA', Gymnastics:'#F2B87A', Soccer:'#9AC99A',
@@ -383,13 +407,14 @@
   function getActColor(){ return sAct ? actColors[sAct] : '#111'; }
 
   function updateStars(){
-    const color = getActColor();
+    const color=getActColor();
     document.querySelectorAll('.apill .star').forEach(s=>s.style.color=color);
   }
 
   function selAct(el){
     document.querySelectorAll('.act').forEach(c=>c.classList.remove('on'));
-    el.classList.add('on');sAct=el.dataset.act;
+    el.classList.add('on');
+    sAct=el.dataset.act;
     updateStars();
     upd();
   }
@@ -398,18 +423,21 @@
     document.querySelectorAll('.apill').forEach(b=>b.classList.remove('on'));
     el.classList.add('on');
     document.getElementById('cAmt').value='';
-    sAmt=a;upd();
+    sAmt=a;
+    upd();
   }
 
   function onCust(){
     document.querySelectorAll('.apill').forEach(b=>b.classList.remove('on'));
     const v=parseInt(document.getElementById('cAmt').value);
-    sAmt=isNaN(v)||v<1?null:v;upd();
+    sAmt=isNaN(v)||v<1?null:v;
+    upd();
   }
 
   function setPay(el,m){
     document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('on'));
-    el.classList.add('on');pay=m;
+    el.classList.add('on');
+    pay=m;
     const ph=document.getElementById('pH');
     const zi=document.getElementById('zI');
     if(m==='venmo'){
@@ -429,7 +457,7 @@
     const copyConfirm=document.getElementById('copyConfirm');
     const note=document.getElementById('nF').value.trim();
 
-    const memo = note ? note : (sAct ? sAct.toLowerCase()+' fund — june salome' : '');
+    const memo=note ? note : (sAct ? sAct.toLowerCase()+' fund — june salome' : '');
 
     if(pay==='venmo'){
       if(sAct&&sAmt){
@@ -446,7 +474,7 @@
       if(sAct){
         zMemo.textContent=memo;
         zMemoWrap.style.display='block';
-        copyConfirm.style.display='none';
+        if(copyConfirm) copyConfirm.style.display='none';
       } else {
         zMemoWrap.style.display='none';
       }
